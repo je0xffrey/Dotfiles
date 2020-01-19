@@ -6,6 +6,7 @@ set expandtab
 set ai
 set hlsearch
 set ruler
+set nu
 highlight Comment ctermfg=green
 colorscheme koehler
 noremap  <Up> ""
