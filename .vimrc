@@ -7,13 +7,7 @@ set ai
 set hlsearch
 set ruler
 set nu
+set hidden
+
 highlight Comment ctermfg=green
 colorscheme koehler
-noremap  <Up> ""
-noremap! <Up> <Esc>
-noremap  <Down> ""
-noremap! <Down> <Esc>
-noremap  <Left> ""
-noremap! <Left> <Esc>
-noremap  <Right> ""
-noremap! <Right> <Esc>
