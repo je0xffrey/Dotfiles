@@ -11,9 +11,8 @@ set hidden
 
 highlight Comment ctermfg=red
 
-call plug#begin('~/.vim/plugged')
-Plug 'dracula/vim',{ 'as': 'dracula' }
-call plug#end()
+"default, keep all others in opt directory instead of start
+packadd! dracula
+colorscheme dracula
 
-color dracula
 set termguicolors
