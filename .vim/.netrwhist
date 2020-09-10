@@ -1,3 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
-let g:netrw_dirhist_1='/home/jeffreyhertzog/.vim'
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/Users/jeffrey.hertzog/.vim'
+let g:netrw_dirhist_6='/Users/jeffrey.hertzog/Documents/work/repos/test-apps/unity-ads-android/.gradle'
+let g:netrw_dirhist_5='/Users'
+let g:netrw_dirhist_4='/Users/jeffrey.hertzog/Documents/work/repos/test-apps/unity-ads-android/gradle'
+let g:netrw_dirhist_3='/Users/jeffrey.hertzog/Documents/work/repos/unity-ads-android/testapp'
+let g:netrw_dirhist_2='/Users/jeffrey.hertzog/Documents/work/repos/unity-ads-webview/build/dev'
+let g:netrw_dirhist_1='/Users/jeffrey.hertzog/Documents/work/repos/unity-ads-android/app/src/main/java/com/unity3d/ads/example/ui'
