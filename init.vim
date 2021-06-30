@@ -5,9 +5,10 @@ syntax on
 set nocompatible
 set smartcase
 filetype plugin on
-set background=dark
+"set background=dark
+set background=light
 set nu
-" for zsh printing unknown term codes instead of ignoring
+" for zsh printing unknown term codes 
 set guicursor=
 
 " Tabs
@@ -15,10 +16,12 @@ set et sw=4 ts=4 sts=4 " Default
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 autocmd FileType html :setlocal sw=2 ts=2 sts=2
 autocmd FileType xml :setlocal sw=2 ts=2 sts=2
+autocmd FileType typescript.tsx :setlocal sw=2 ts=2 sts=2
 
 " Make vertical separator pretty
 highlight VertSplit cterm=NONE
 set fillchars+=vert:\▏
+
 
 " ============== "
 " ===Mappings=== "
@@ -26,6 +29,7 @@ set fillchars+=vert:\▏
 let mapleader="\<Space>"
 
 nnoremap <leader>gb :Blame<CR>
+nnoremap <leader>gy :Goyo<CR>
 
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>w :w<CR>
@@ -53,9 +57,9 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-"ctrl + j/k to jump to errors
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+"jump to errors in llist
+nmap <Leader>j :lnext<CR>
+nmap <Leader>k :lprev<CR>
 
 "shift + k opens up documentation
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -66,48 +70,64 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <silent> <Leader>s <Plug>SearchNormal
 vmap <silent> <Leader>s <Plug>SearchVisual
 
+
 " ============="
 " ===Plugins==="
 " ============="
-" 
 let g:ale_disable_lsp = 1
 call plug#begin('~/.local/share/nvim/plugged')
-"disabled until we fix <Tab> conflict
-"Plug 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki'
 Plug 'pangloss/vim-javascript'    
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'herringtondarkholme/yats.vim'
+Plug 'wavded/vim-stylus'
 Plug 'kyoz/purify', { 'rtp': 'vim' }
 Plug 'vim-airline/vim-airline'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'dense-analysis/ale'
 Plug 'airblade/vim-gitgutter'
 Plug 'StanAngeloff/php.vim'
 Plug 'voldikss/vim-browser-search'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'junegunn/goyo.vim'
 let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank']
 call plug#end()
+
 
 " ============="
 " PluginConfigs"
 " ============="
-colorscheme purify
+"colorscheme purify
+colorscheme PaperColor
 let g:airline_theme='purify'
+let g:airline_theme='bubblegum'
 
-"ignoring .gitignore + folders
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+nmap <C-p>j <Plug>VimwikiNextLink
+nmap <C-n>k <Plug>VimwikiPrevLink
+
+nmap <C-j> :cn<CR>
+nmap <C-k> :cp<CR>
 
 "custom icons for ale
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = "⚠"
 
-highlight ALEError cterm=underline ctermfg=209 gui=underline guifg=#FF875F
-highlight ALEErrorSign ctermbg=NONE ctermfg=209
-highlight ALEWarning cterm=underline gui=underline ctermfg=228 guifg=#FFFF87
-highlight ALEWarningSign ctermbg=NONE ctermfg=228
+highlight ALEError cterm=underline ctermfg=196 gui=underline guifg=#FF875F
+highlight ALEErrorSign ctermbg=NONE ctermfg=196
+highlight ALEWarning cterm=underline gui=underline ctermfg=208 guifg=#fed8b1
+highlight ALEWarningSign ctermbg=NONE ctermfg=208
 let g:ale_linters = {'php': ['php', 'langserver', 'phan']}
 
 "sync syntax (might slow down large files)
@@ -143,6 +163,7 @@ let g:browser_search_default_engine = 'duckduckgo'
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
 
 " ============="
 " ==CustomCmds="
