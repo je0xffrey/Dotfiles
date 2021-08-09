@@ -44,8 +44,8 @@ vmap <Leader>p "+p
 vmap <Leader>P "+P
 
 "Move visual selection
-vnoremap J :m '>+1<cr>gv=gv
-vnoremap K :m '<-2<cr>gv=gv
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 
 "navigate buf with [tab] and bp with [shift+tab]
 nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
