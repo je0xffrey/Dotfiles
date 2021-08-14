@@ -114,11 +114,11 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
-nmap <C-p>j <Plug>VimwikiNextLink
-nmap <C-n>k <Plug>VimwikiPrevLink
+nmap <C-p> :cn<CR>
+nmap <C-n> :cp<CR>
 
-nmap <C-j> :cn<CR>
-nmap <C-k> :cp<CR>
+nmap <C-j> <Plug>VimwikiNextLink
+nmap <C-k> <Plug>VimwikiPrevLink
 
 "custom icons for ale
 let g:ale_sign_error = '✖'
