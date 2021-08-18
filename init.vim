@@ -10,6 +10,13 @@ set background=light
 set nu
 " for zsh printing unknown term codes 
 set guicursor=
+set cursorline
+" prompt when :q unsaved changes
+set confirm
+
+" indent without losing the visual selection
+xnoremap < <gv
+xnoremap > >gv
 
 " Tabs
 set et sw=4 ts=4 sts=4 " Default
@@ -88,6 +95,7 @@ Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'dense-analysis/ale'
 Plug 'airblade/vim-gitgutter'
+Plug 'jreybert/vimagit'
 Plug 'StanAngeloff/php.vim'
 Plug 'voldikss/vim-browser-search'
 Plug 'NLKNguyen/papercolor-theme'
@@ -119,6 +127,14 @@ nmap <C-n> :cp<CR>
 
 nmap <C-j> <Plug>VimwikiNextLink
 nmap <C-k> <Plug>VimwikiPrevLink
+
+" all about git
+nmap <leader>gn <Plug>(GitGutterNextHunk)
+nmap <leader>gp <Plug>(GitGutterPrevHunk)
+nmap <leader>ga <Plug>(GitGutterStageHunk)
+nmap <leader>gu <Plug>(GitGutterUndoHunk)
+nnoremap <leader>gs :Magit<CR>
+nnoremap <leader>gP :! git push<CR>
 
 "custom icons for ale
 let g:ale_sign_error = '✖'
@@ -216,3 +232,7 @@ function! HLNext (blinktime)
   call matchdelete(ring)
   redraw
 endfunction
+
+" switch between last two buffers
+nnoremap <leader><leader> <c-^>
+
