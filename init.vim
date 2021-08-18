@@ -8,8 +8,7 @@ filetype plugin on
 "set background=dark
 set background=light
 set nu
-" for zsh printing unknown term codes 
-set guicursor=
+set guicursor=i:block
 set cursorline
 " prompt when :q unsaved changes
 set confirm
