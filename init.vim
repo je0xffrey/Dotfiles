@@ -1,45 +1,42 @@
-" ============== "
-" ====Basics==== "
-" ============== "
+" ############## "
+" ####Basics#### "
+" ############## "
+
 syntax on
 set nocompatible
 set smartcase
 filetype plugin on
-"set background=dark
-set background=light
+set background=dark
 set nu
 set guicursor=i:block
 set cursorline
-" prompt when :q unsaved changes
 set confirm
+set tabstop=4 shiftwidth=4 expandtab
+autocmd BufRead,BufNewFile  *.ts* setlocal ts=2 sw=2 expandtab
+autocmd BufRead,BufNewFile  *.js* setlocal ts=2 sw=2 expandtab
+autocmd BufRead,BufNewFile  *.*css setlocal ts=2 sw=2 expandtab
+highlight VertSplit cterm=NONE
+set fillchars+=vert:\▏
+
+
+" ############## "
+" ###Mappings### "
+" ############## "
+
+let mapleader="\<Space>"
 
 " indent without losing the visual selection
 xnoremap < <gv
 xnoremap > >gv
 
-" Tabs
-set et sw=4 ts=4 sts=4 " Default
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
-autocmd FileType html :setlocal sw=2 ts=2 sts=2
-autocmd FileType xml :setlocal sw=2 ts=2 sts=2
-autocmd FileType typescript.tsx :setlocal sw=2 ts=2 sts=2
-
-" Make vertical separator pretty
-highlight VertSplit cterm=NONE
-set fillchars+=vert:\▏
-
-
-" ============== "
-" ===Mappings=== "
-" ============== "
-let mapleader="\<Space>"
-
 nnoremap <leader>gb :Blame<CR>
 nnoremap <leader>gy :Goyo<CR>
-
-nnoremap <Leader>o :CtrlP<CR>
-nnoremap <Leader>w :w<CR>
 nnoremap <leader>q :bd<CR>
+nnoremap <leader>aq :wqa<CR>
+
+" insert space without leaving normal
+nnoremap <Leader>o o<Esc>0"_D
+nnoremap <Leader>O O<Esc>0"_D
 
 "clipboard copy with leader
 vmap <Leader>y "+y
@@ -60,12 +57,14 @@ nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :wri
 "GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
+"nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 "jump to errors in llist
 nmap <Leader>j :lnext<CR>
 nmap <Leader>k :lprev<CR>
+
+nmap <Leader>m :make<CR>
 
 "shift + k opens up documentation
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -76,27 +75,24 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <silent> <Leader>s <Plug>SearchNormal
 vmap <silent> <Leader>s <Plug>SearchVisual
 
+"uppercase word after cursor in insert mode
+imap <c-u> <esc>veU<esc>ea
 
-" ============="
-" ===Plugins==="
-" ============="
+
+" ############# "
+" ###Plugins### "
+" ############# "
+
 let g:ale_disable_lsp = 1
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'vimwiki/vimwiki'
-Plug 'pangloss/vim-javascript'    
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'herringtondarkholme/yats.vim'
-Plug 'wavded/vim-stylus'
-Plug 'kyoz/purify', { 'rtp': 'vim' }
+"Plug 'plasticboy/vim-markdown'
 Plug 'vim-airline/vim-airline'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'dense-analysis/ale'
 Plug 'airblade/vim-gitgutter'
 Plug 'jreybert/vimagit'
-Plug 'StanAngeloff/php.vim'
-Plug 'voldikss/vim-browser-search'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'nvim-lua/popup.nvim'
@@ -106,20 +102,24 @@ Plug 'junegunn/goyo.vim'
 let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank']
 call plug#end()
 
+" ############### "
+" #PluginConfigs# "
+" ############### "
 
-" ============="
-" PluginConfigs"
-" ============="
-"colorscheme purify
 colorscheme PaperColor
+
 let g:airline_theme='purify'
 let g:airline_theme='bubblegum'
 
+let g:vimwiki_folding = 'expr'
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" disable git gutter in markdown files (laggy)
+autocmd BufRead,BufNewFile  *.md GitGutterDisable | set nowrap 
 
 nmap <C-p> :cn<CR>
 nmap <C-n> :cp<CR>
@@ -145,11 +145,7 @@ highlight ALEWarning cterm=underline gui=underline ctermfg=208 guifg=#fed8b1
 highlight ALEWarningSign ctermbg=NONE ctermfg=208
 let g:ale_linters = {'php': ['php', 'langserver', 'phan']}
 
-"sync syntax (might slow down large files)
-autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
-autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
-
-"coc
+"coc config
 set hidden
 set nobackup
 set nowritebackup
@@ -161,28 +157,33 @@ if has("patch-8.1.1564")
 else
   set signcolumn=yes
 endif
+
 " Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+    
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
 
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-let g:browser_search_default_engine = 'duckduckgo' 
-
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-
-" ============="
-" ==CustomCmds="
-" ============="
+" ############# " 
+" ##Functions## "
+" ############# "
 
 command! -nargs=* Blame call s:GitBlame()
 function! s:GitBlame()
@@ -195,10 +196,10 @@ function! s:GitBlame()
 endfunction
 
 "Absolute path of open file to clipboard
-function! Cwf()
+function! Ptc()
     let @+=expand('%:p')
 endfunction
-command! Cwf call Cwf()
+command! Ptc call Ptc()
 
 "ex) :Tag h1
 function! Tag(name)
@@ -216,13 +217,12 @@ function! Jtag(name)
 endfunction
 command! -nargs=1 Jtag call Jtag(<f-args>)
 
-highlight Search ctermfg=white
+highlight Search ctermfg=39
 highlight Search ctermbg=212
-
-" Damian Conway's Die Blinkënmatchen: highlight matches
 nnoremap <silent> n n:call HLNext(0.1)<cr>
 nnoremap <silent> N N:call HLNext(0.1)<cr>
 
+" Damian Conway's Die Blinkënmatchen: highlight matches
 function! HLNext (blinktime)
   let target_pat = '\c\%#'.@/
   let ring = matchadd('ErrorMsg', target_pat, 101)
@@ -235,3 +235,20 @@ endfunction
 " switch between last two buffers
 nnoremap <leader><leader> <c-^>
 
+" completes task and adds timestamp
+nnoremap <leader>tt :call GetTOD()<CR>
+function! GetTOD()
+    "substitute removes extra escape character spawned by time-of-day
+    let tod=substitute(system('time-of-day'), '\n$', '', '')
+    " removes initial * [ ] on a to-do item
+    let split_line=split(getline('.'), "] ")[1]
+    " marks as complete and adds the timestamp and saved line
+    call setline(line('.'), '* [X] ' . tod . ' ' . split_line)
+endfunction
+
+" create a new day for journal entry
+nnoremap <leader>je :call JournalEntry()<CR>
+function! JournalEntry()
+    let entry=substitute(system('journal'), '\n$', '', '')
+    call setline(line('.'), '#### ' . entry . ' ####')
+endfunction
