@@ -26,4 +26,4 @@ lfcd () {
 }
 bindkey -s '^o' 'lfcd\n'
 
-source /Users/jeffrey.hertzog/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/Dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
