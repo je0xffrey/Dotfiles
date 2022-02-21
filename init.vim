@@ -12,6 +12,7 @@ set guicursor=i:block
 set cursorline
 set confirm
 set tabstop=4 shiftwidth=4 expandtab
+autocmd BufRead,BufNewFile *.md setlocal textwidth=80 nonu
 autocmd BufRead,BufNewFile  *.ts* setlocal ts=2 sw=2 expandtab
 autocmd BufRead,BufNewFile  *.js* setlocal ts=2 sw=2 expandtab
 autocmd BufRead,BufNewFile  *.*css setlocal ts=2 sw=2 expandtab
@@ -61,13 +62,16 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gr <Plug>(coc-references)
 
 "jump to errors in llist
-nmap <Leader>j :lnext<CR>
-nmap <Leader>k :lprev<CR>
+nnoremap <Leader>jj :call CocAction('diagnosticNext')<CR>
+nnoremap <Leader>kk :call CocAction('diagnosticPrevious')<CR>
 
-nmap <Leader>m :make<CR>
+nnoremap <Leader>m :make<CR>
 
 "shift + k opens up documentation
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+"clear search highlighting until next search
+nmap <Leader>/ :noh<CR>
 
 "Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -86,7 +90,6 @@ imap <c-u> <esc>veU<esc>ea
 let g:ale_disable_lsp = 1
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'vimwiki/vimwiki'
-"Plug 'plasticboy/vim-markdown'
 Plug 'vim-airline/vim-airline'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
@@ -99,6 +102,8 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'junegunn/goyo.vim'
+Plug 'tpope/vim-surround'
+Plug 'mattn/emmet-vim'
 let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank']
 call plug#end()
 
@@ -112,6 +117,9 @@ let g:airline_theme='purify'
 let g:airline_theme='bubblegum'
 
 let g:vimwiki_folding = 'expr'
+
+" set max width of Goyo 
+let g:goyo_width = 90
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
@@ -176,6 +184,10 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
