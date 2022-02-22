@@ -261,6 +261,7 @@ endfunction
 " create a new day for journal entry
 nnoremap <leader>je :call JournalEntry()<CR>
 function! JournalEntry()
-    let entry=substitute(system('journal'), '\n$', '', '')
+    let entry=substitute(system('date +%A\ %I:%M\ %x'), '\n$', '', '')
     call setline(line('.'), '#### ' . entry . ' ####')
 endfunction
+
