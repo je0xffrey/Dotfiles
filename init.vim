@@ -251,11 +251,11 @@ nnoremap <leader><leader> <c-^>
 nnoremap <leader>tt :call GetTOD()<CR>
 function! GetTOD()
     "substitute removes extra escape character spawned by time-of-day
-    let tod=substitute(system('time-of-day'), '\n$', '', '')
+    let tod=substitute(system('date +%I:%M%p'), '\n$', '', '')
     " removes initial * [ ] on a to-do item
     let split_line=split(getline('.'), "] ")[1]
     " marks as complete and adds the timestamp and saved line
-    call setline(line('.'), '* [X] ' . tod . ' ' . split_line)
+    call setline(line('.'), '* [X] | ' . tod . ' | ' . split_line)
 endfunction
 
 " create a new day for journal entry
