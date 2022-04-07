@@ -16,7 +16,7 @@ for ITEM in $FLINES
     target_time=`date -d ${bday} +%s` #convert **/**/**** birthday to time from epoch
     today_time=`date +%s`
     diff=$(((target_time - today_time)/3600)) # number of hours birthday is from today
-    if [[ $diff -lt 505 && $diff -ge 0 ]]
+    if [[ $diff -lt "505" && $diff -ge "-48" ]]
     then
         name=${ITEM[(ws: , :)3]} # split string by commas and get birthday parameter
         bday=`date -d ${bday} +%a.%b.%d`
