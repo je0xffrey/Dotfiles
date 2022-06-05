@@ -1,1 +1,0 @@
-- TODO: add the repos of plugins as git submodules in future

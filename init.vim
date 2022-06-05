@@ -19,6 +19,15 @@ autocmd BufRead,BufNewFile  *.*css setlocal ts=2 sw=2 expandtab
 highlight VertSplit cterm=NONE
 set fillchars+=vert:\▏
 
+" spell check
+autocmd FileType markdown setlocal spell
+autocmd FileType gitcommit setlocal spell
+
+" Enable dictionary auto-completion in Markdown files and Git Commit Messages
+autocmd FileType markdown setlocal complete+=kspell
+autocmd FileType gitcommit setlocal complete+=kspell
+
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 " ############## "
 " ###Mappings### "
@@ -103,6 +112,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'junegunn/goyo.vim'
 Plug 'tpope/vim-surround'
 Plug 'mattn/emmet-vim'
+Plug 'preservim/vimux'
 let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank']
 call plug#end()
 
@@ -117,6 +127,9 @@ let g:airline_theme='bubblegum'
 
 let g:vimwiki_folding = 'expr'
 
+" vimux pane height
+let g:VimuxHeight = "30"
+
 " set max width of Goyo 
 let g:goyo_width = 90
 " Find files using Telescope command-line sugar.
@@ -124,6 +137,7 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
 
 " disable git gutter in markdown files (laggy)
 autocmd BufRead,BufNewFile  *.md GitGutterDisable | set nowrap 
@@ -164,6 +178,11 @@ if has("patch-8.1.1564")
 else
   set signcolumn=yes
 endif
+
+"run autograder for 360 to check assignment grade
+nnoremap <leader>vr :call VimuxRunCommand("clear; python autograder.py;")<CR>
+nnoremap <leader>vp :call VimuxPromptCommand("clear; python autograder.py -q q")<CR>
+nnoremap <leader>vq :call VimuxCloseRunner()<CR>
 
 " Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <TAB>
