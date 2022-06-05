@@ -131,4 +131,4 @@ lfcd () {
 }
 bindkey -s '^o' 'lfcd\n'
 
-source ~/Dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source ~/Dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
