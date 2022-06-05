@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/avr/bin:$HOME/.local/bin:/usr/local/go/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -36,6 +36,7 @@ ZSH_THEME="robbyrussell"
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
 zstyle ':completion:*' list-colors
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=60'
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -110,9 +111,15 @@ export KEYTIMEOUT=1
 alias ll="ls -1G"
 alias ls="ls -F"
 
+# python
+alias python="python3"
+
 setopt PROMPT_SUBST
 # alias to reload zshrc
 alias zshreload="source ~/.zshrc"
+
+# john the ripper
+alias john="~/security/jtr/run/john"
 
 # %n for full hostname, %m is just up to the first period
 PROMPT='%F{5}[%F{7}%B%m%b:%F{5}${PWD/#$HOME/~}] $%f ' 
@@ -129,6 +136,39 @@ lfcd () {
         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
     fi
 }
-bindkey -s '^o' 'lfcd\n'
 
-# source ~/Dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# fast ctrlz to zip in and out of vim
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line
+  else
+    zle push-input
+    zle clear-screen
+  fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
+
+bindkey -s '^o' 'lfcd\n'
+alias bday="~/Dotfiles/scripts/bday"
+
+bday
+
+source ~/Dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/clown/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/clown/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/clown/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/clown/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
