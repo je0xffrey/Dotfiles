@@ -1,6 +1,6 @@
 [Icon Theme]
-Name=Pop
-Comment=A simple and modern icon theme.
+Name=Maplestory
+Comment=My custom Maplestory cursor theme.
 Inherits=Pop-Extra,pop-os-branding,Adwaita,hicolor
 #Example=folder
 
