@@ -164,7 +164,16 @@ highlight ALEError cterm=underline ctermfg=196 gui=underline guifg=#FF875F
 highlight ALEErrorSign ctermbg=NONE ctermfg=196
 highlight ALEWarning cterm=underline gui=underline ctermfg=208 guifg=#fed8b1
 highlight ALEWarningSign ctermbg=NONE ctermfg=208
-let g:ale_linters = {'php': ['php', 'langserver', 'phan']}
+"let g:ale_linters = {'php': ['php', 'langserver', 'phan']}
+let g:ale_linters = { 'c++': ['clang', 'g++'], 'c': ['clang'], 'h': ['null']}
+
+" custom setting for clangformat
+let g:neoformat_cpp_clangformat = {
+    \ 'exe': 'clang-format',
+    \ 'args': ['--style="{IndentWidth: 4}"']
+\}
+let g:neoformat_enabled_cpp = ['clangformat']
+let g:neoformat_enabled_c = ['clangformat']
 
 "coc config
 set hidden

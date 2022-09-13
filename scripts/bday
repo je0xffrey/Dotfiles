@@ -8,9 +8,7 @@ FLINES=( "${(f)mapfile[$FNAME]}" )
 LIST="${mapfile[$FNAME]}" # Not required unless stuff uses it
 integer POS=1             # Not required unless stuff uses it
 integer SIZE=$#FLINES     # Number of lines, not required unless stuff uses it
-print "=-=-=-=-=-=-=-=-=-"
-print "[ UPCOMING BDAYS ]"
-print "=-=-=-=-=-=-=-=-=-"
+figlet "birthdays"
 for ITEM in $FLINES
     do bday=${ITEM[(ws: , :)1]} # split string by commas and get birthday parameter
     target_time=`date -d ${bday} +%s` #convert **/**/**** birthday to time from epoch
