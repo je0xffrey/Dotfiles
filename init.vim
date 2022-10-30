@@ -2,6 +2,7 @@
 " ####Basics#### "
 " ############## "
 
+
 syntax on
 set nocompatible
 set smartcase
@@ -32,6 +33,8 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 " ############## "
 " ###Mappings### "
 " ############## "
+iabbrev #i #include
+iabbrev #d #define
 
 let mapleader="\<Space>"
 
@@ -284,7 +287,7 @@ function! GetTOD()
     " removes initial * [ ] on a to-do item
     let split_line=split(getline('.'), "] ")[1]
     " marks as complete and adds the timestamp and saved line
-    call setline(line('.'), '* [X] | ' . tod . ' | ' . split_line)
+    call setline(line('.'), '* [X] [ ' . tod . ' ] ' . split_line)
 endfunction
 
 " create a new day for journal entry
