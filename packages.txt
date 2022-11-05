@@ -1,0 +1,21 @@
+=== packages ===
+
+apt install tmux
+apt install zsh
+apt install figlet
+apt install ruby
+sudo gem install mdless
+apt install mpv
+apt install xclip
+
+==== to get bose qc35 II audio to connect ====
+
+apt install blueman
+sudo vi /etc/bluetooth/main.conf
+#Replace the following (remove the "#" symbol at beginning of the line if it exist):
+    ControllerMode = dual
+with: 
+    ControllerMode = bredr
+sudo service bluetooth restart
+
+===============================================
