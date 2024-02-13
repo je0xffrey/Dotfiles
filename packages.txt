@@ -7,6 +7,17 @@ apt install ruby
 sudo gem install mdless
 apt install mpv
 apt install xclip
+apt install gnome-tweaks
+
+# pwntools
+apt-get install python3 python3-pip python3-dev git libssl-dev libffi-dev build-essential
+python3 -m pip install --upgrade pip
+python3 -m pip install --upgrade pwntools
+
+
+# cursors 
+apt install imagemagick x11-apps 
+
 
 ==== to get bose qc35 II audio to connect ====
 

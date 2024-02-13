@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:/usr/local/avr/bin:$HOME/.local/bin:/usr/local/go/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/avr/bin:$HOME/.local/bin:/usr/local/go/bin:/home/clown/bin/go/bin:$HOME/.cargo/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -101,11 +101,15 @@ bindkey '^Z' fancy-ctrl-z
 
 bindkey '^R' history-incremental-search-backward
 
+alias bat="upower -i `upower -e | grep 'BAT'`"
+
 bindkey -s '^o' 'lfcd\n'
 alias bday="~/Dotfiles/scripts/bday"
 alias tint="redshift -l 36.778259:-119.417931 > /dev/null 2>&1 &"
 alias untint="pkill -15 -f redshift"
 
 bday
+
+export GOPATH=/home/clown/bin/go
 
 # source ~/Dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
