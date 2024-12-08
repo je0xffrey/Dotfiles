@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 # reminds user of birthdays happening in the next 30 days
 zmodload zsh/mapfile
 # change this path to locate your stored birthdays
