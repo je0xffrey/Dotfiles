@@ -43,7 +43,7 @@ vim.opt.nu = true
 vim.opt.guicursor="i:block"
 vim.opt.cursorline = true
 vim.opt.confirm = true
---- vim.opt.textwidth=80
+vim.opt.textwidth=80
 vim.opt.pumheight=5
 vim.g.vimwiki_folding="expr"
 vim.opt.tabstop=4
@@ -111,6 +111,7 @@ require("mason-lspconfig").setup()
 local lspconfig = require('lspconfig')
 lspconfig.ruff_lsp.setup{}
 
+lspconfig.clangd.setup{}
 
 lspconfig.pyright.setup {
     on_attach = on_attach,
@@ -144,22 +145,6 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
     -- client.server_capabilities.signature_help = false
   -- end
  -- }
-
-lspconfig.jedi_language_server.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-  handlers = handlers,
-  init_options = {
-    completion = {
-      disableSnippets = false,
-    },
-  }
-})
--- Python
-require("lspconfig").jedi_language_server.setup {
-  handlers = handlers,
-  capabilities = capabilities,
-}
 
 
 require("conform").setup({

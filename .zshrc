@@ -67,6 +67,8 @@ setopt PROMPT_SUBST
 # alias to reload zshrc
 alias zshreload="source ~/.zshrc"
 
+alias ghidra="/home/clown/tools/ghidra_11.1.1_PUBLIC/ghidraRun"
+
 # john the ripper
 alias john="~/security/jtr/run/john"
 
@@ -112,4 +114,4 @@ bday
 
 export GOPATH=/home/clown/bin/go
 
-# source ~/Dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
