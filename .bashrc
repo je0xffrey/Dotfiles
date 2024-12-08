@@ -1,8 +1,3 @@
-# MY CHANGES
-export PATH="/home/jeffrey.hertzog/Downloads/jdk-17.0.10/bin:$PATH"
-export PATH="$PATH:/opt/nvim-linux64/bin:/opt/gradle/bin"
-export PATH="$PATH:/home/jeffrey.hertzog/.local/bin"
-
 # better autocomplete
 if [ "$PS1" ]; then
     bind 'set show-all-if-ambiguous on'
@@ -24,20 +19,12 @@ ssh-add ~/.ssh/id_rsa_git >&/dev/null
 set -o vi
 export EDITOR="/usr/bin/vim"
 
-export DENO_INSTALL="/home/jeffrey.hertzog/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
-export JAVA_HOME="/usr/lib/jvm/jdk-21.0.4"
+export JAVA_HOME=""
 
-export GHIDRA_ROOT="/home/jeffrey.hertzog/Downloads/ghidra_11.2.1_PUBLIC"
-export GHIDRA_SERVER=ghidra.zetier.com
+export GHIDRA_ROOT=""
+export GHIDRA_SERVER=
 # hopeful fix for spectrwm bug?
 export _JAVA_AWT_WM_NONREPARENTING=0
-
-#alias ghidra="~/Downloads/ghidra_11.1_DEV/ghidraRun"
-alias ghidra="$GHIDRA_ROOT/ghidraRun"
-alias connect="~/Documents/mirror/otp-vpn/connect.sh"
-
-
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
@@ -153,7 +140,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-[ -r /home/jeffrey.hertzog/.byobu/prompt ] && . /home/jeffrey.hertzog/.byobu/prompt   #byobu-prompt#
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
