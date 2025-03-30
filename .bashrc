@@ -1,19 +1,38 @@
-# better autocomplete
-if [ "$PS1" ]; then
-    bind 'set show-all-if-ambiguous on'
-    bind 'TAB:menu-complete'
-f
+# DOTFILE
+
+# use bat (batcat) for syntax highlighting in man
+export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
+
+# start history configuration
 # Avoid duplicates
 HISTCONTROL=ignoredups:erasedups # Ubuntu default is ignoreboth
 # When the shell exits, append to the history file instead of overwriting it
 shopt -s histappend  # In Ubuntu this is already set by default
-
 # After each command, append to the history file and reread it
 PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=10000
+HISTFILESIZE=10000
+# end history configuration
+
+# better (zsh-like) autocomplete
+if [ "$PS1" ]; then
+    bind 'set show-all-if-ambiguous on'
+    bind 'TAB:menu-complete'
+fi
 
 # ensure add keys to agent every new shell
 eval "$(ssh-agent -s)" >&/dev/null
 ssh-add ~/.ssh/id_rsa_git >&/dev/null
+
+# use ctrl-z to toggle in and out of bg
+if [[ $- == *i* ]]; then
+  stty susp undef
+  bind '"\C-z":" fg\015"'
+fi
 
 # vi mode only
 set -o vi
@@ -35,14 +54,6 @@ case $- in
     *i*) ;;
       *) return;;
 esac
-
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=10000
-HISTFILESIZE=10000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -144,3 +155,6 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# enable fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
