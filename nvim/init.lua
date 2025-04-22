@@ -1,6 +1,8 @@
+require("config.lazy")
+require('dev')
 
-
-require('plugins')
+-- vim.lsp.enable('pyright')
+-- vim.lsp.enable('lua_ls')
 
 local call = vim.call
 local cmd = vim.cmd
@@ -9,9 +11,8 @@ vim.opt.compatible = false
 vim.cmd("syntax on")
 vim.opt.background="dark"
 vim.cmd([[highlight ColorColumn ctermbg=0 guibg=lightgrey]])
---vim.cmd("colorscheme PaperColor")
 vim.cmd([[colorscheme PaperColorSlim]])
-vim.opt.fileformat = "unix"
+--vim.opt.fileformat = "unix"
 vim.opt.smartcase = true
 vim.opt.rnu = true
 vim.opt.nu = true
@@ -31,6 +32,12 @@ vim.g.vimwiki_folding="expr"
 vim.treesitter.language.register('markdown', 'vimwiki')
 
 vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
+
+-- execute lua with helpful keybinds
+vim.keymap.set("n", "<Space><Space>x", "<cmd>source %<CR>")
+vim.keymap.set("n", "<Space>x", ":.lua<CR>")
+vim.keymap.set("v", "<Space>x", ":lua<CR>")
+
 vim.g.mapleader = " "
 
 function map(mode, shortcut, command)
@@ -66,16 +73,11 @@ nmap("<Leader>n", ":cn<CR>")
 nmap("<Leader>p", ":cp<CR>")
 nmap("<Leader>cl", ":ccl<CR>")
 
-nmap("<leader>ff", "<cmd>Telescope find_files theme=ivy layout_config={width=120}<cr>")
-nmap("<leader>fg", "<cmd>Telescope live_grep theme=ivy layout_config={width=120}<cr>")
-nmap("<leader>fb", "<cmd>Telescope buffers theme=ivy layout_config={width=120}<cr>")
-nmap("<leader>fh", "<cmd>Telescope help_tags theme=ivy layout_config={width=120}<cr>")
+nmap("<leader>ff", "<cmd>Telescope find_files<cr>")
+nmap("<leader>fg", "<cmd>Telescope live_grep<cr>")
+nmap("<leader>fb", "<cmd>Telescope buffers<cr>")
+nmap("<leader>fh", "<cmd>Telescope help_tags<cr>")
 nmap("<leader>fr", "<cmd>Telescope resume<cr>")
-
-nmap("<leader>gn", "<Plug>(GitGutterNextHunk)")
-nmap("<leader>gp", "<Plug>(GitGutterPrevHunk)")
-nmap("<leader>ga", "<Plug>(GitGutterStageHunk)")
-nmap("<leader>gu", "<Plug>(GitGutterUndoHunk)")
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
